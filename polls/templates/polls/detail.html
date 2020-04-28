@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Détail{% endblock %}
+
+{% block content %}
+<h1>Ruche N° {{ hive.id_hive }}</h1>
+<ul>
+    Dernières mesures
+    <!--{% for metric_hive in hive.metric_hive_set.all%}-->
+    <!--<li> temperature {{metric_hive.temperature}}</li>-->
+    <!--{% endfor %}-->
+    <!--<form action="{% url 'polls:mesures' hive.id_hive %}" method="get">-->
+    {% csrf_token %}
+    {% for metric_hive in hive.metric_hive_set.all %}
+    <!--<input type="radio" name="metric_hive"-->
+        id="metric_hive{{ forloop.counter }}" value="{{ metric_hive.id }}">
+        <label for="metric_hive{{ forloop.counter }}">
+            {{ metric_hive.acq_date}},
+            température : {{ metric_hive.temperature}},
+            poids : {{metric_hive.weight}},
+            humidité : {{metric_hive.humidite}},
+            son : {{metric_hive.sound}}
+            id_hive : {{metric_hive.id_hive}}
+            id : {{metric_hive.id}}
+            </tr>
+        </label><br>
+    {% endfor %}
+   <!--<input type="submit" value="detail mesure"> -->       
+    </form>
+</ul>
+{% endblock %}

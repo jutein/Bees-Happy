@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+   <link rel="stylesheet" href="/media/css/style.css">
+   <title>{% block title %}{% endblock %}</title>
+   {% load static %}
+        <img src="{%static '/polls/abeille.bmp' %}" alt="Mon imagee" />
+</head>
+
+<body>
+<header>BEES HAPPY</header>
+    <nav>
+       {% block nav %}
+       <ul>
+            <li><a href="/polls/">Accueil</a></li>
+            <li><a href="/polls/checks">Visites</a></li>
+            <li><a href="/polls/hives">Ruches</a></li>
+            <li><a href="/polls/apiarieslist">Ruchers</a></li>
+            <li><a href="/polls/settings">Paramètres</a></li>
+            <li><a href="/polls/rucheform">Nouvelle ruche</a></li>
+            <li><a href="/polls/apiary">Nouveau rucherie</a></li>
+            <li><a href="/polls/calc/9/567/">calc</a></li>
+       </ul>
+       {% endblock %}
+   </nav>
+
+   <section id="content">
+       {% block content %}{% endblock %}
+   </section>
+
+<footer>&copy; Bees happy</footer>
+</body>
+</html>

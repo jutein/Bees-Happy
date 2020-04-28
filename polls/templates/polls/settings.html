@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Consultation{% endblock %}
+{% block content %}
+{% if latest_hive_list %}
+    <ul>
+    <B> Etat de mon rucher</B>
+    {% for check_hive in latest_hive_list %}
+<!--    <li> Ruche N° <a href="/polls/{{ check_hive.id_hive }}/">{{check_hive.id_hive }}</a></li>
+-->
+  <li> Ruche N° <a href="{% url 'polls:detail' check_hive.id_hive %}">{{check_hive.id_hive }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No hive available.</p>
+{% endif %}
+{% endblock %}

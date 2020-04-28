@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Calcul{% endblock %}
+{% block content %}
+
+<h1>Ma super calculatrice</h1>
+<p>Addition {{ nb1 }} + {{ nb2 }}, ça fait <strong>{{ add }}</strong> !<br />
+<p>Multiplication {{ nb1 }} X {{ nb2 }},  fait <strong>{{ mult }}</strong> !<br />
+
+Nous pouvons également afficher un texteeeee "{{ montexte }}" formaté 8 premiers caractères : "{{ montexte|truncatechars:8 }}" </p>
+
+Dans ce cas
+{% if add > mult %}
+   le résultat de l'adition est supérieur à celui de la multiplication
+{% else %}
+   le résultat de la multiplication est supérieur à celui de l'adition
+{% endif %} !
+{% endblock %}
