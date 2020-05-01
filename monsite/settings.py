@@ -23,9 +23,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '5%e29sy^07+v5+yg_b7a2a(pv(6tqw20*ipkj)^l!h*y-gb&1f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if os.environ.get('ENV')=='PRODUCTION':
+    DEBUG = False
+else:
+    DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['beeshappy.herokuapp.com']
 
 
 # Application definition
@@ -48,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'monsite.urls'
@@ -120,6 +124,14 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"), '/polls/static'
-)
+if os.environ.get('ENV') == ('PRODUCTION') :
+    PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+    STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+    STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, "static"), '/polls/static')
+    STATICFILES_STORAGE = 
+        'whirenoise.storage.CompressedManifestStaticFilesStorage'    
+
+else :
+        STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, "static"), 'static'
