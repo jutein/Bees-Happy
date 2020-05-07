@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.forms import ModelForm
 
 
 # general app setting 
@@ -29,6 +30,13 @@ class Apiaries(models.Model):
     class Meta:
         verbose_name = "Mes rucher"
         ordering = ['a_idgateway']
+
+
+class Apiarieform(ModelForm):
+    class Meta:
+        model = Apiaries
+        fields = ['a_id', 'a_fkuser', 'a_name', 'a_idgateway']
+
 
 #Hive linked many to one Apiary
 class Hive(models.Model):
@@ -66,6 +74,14 @@ class Hive(models.Model):
     class Meta:
         verbose_name = "Mes ruches"
         ordering = ['rfid_id']
+
+
+class Hiveform(ModelForm):
+    class Meta:
+        model = Hive
+        fields = ['h_fkapiary', 'rfid_id', 'h_swarmdate', 'h_queendate', 
+            'h_queentype', 'h_queencolor', 'h_model', 
+            'h_framenb']
 
 #Check linked many to one Hive (Visites)
 class Check(models.Model):
@@ -143,6 +159,10 @@ class Check(models.Model):
         ordering = ['c_datetime']
 
 
+class Checkform(ModelForm):
+    class Meta:
+        model = Check
+        fields = '__all__'
 
 class Check_Hive(models.Model): #A supprimer
     rfid_hive = models.IntegerField(default=0)
@@ -156,6 +176,7 @@ class Check_Hive(models.Model): #A supprimer
 
     def __str__(self):
         return "Ruche N°"+str(self.rfid_hive)+" - "+str(self.chk_date)+" - "+self.etat_couvain
+
 
 
 #Apiary Measurements linked many to one Apiary
@@ -198,3 +219,5 @@ class Metric_Hive(models.Model):
 
     def __str__(self):
         return "Ruche N°"+str(self.mh_fkhive)+" - "+str(self.mh_date)+" - mesure:"+str(self.mh_measure) + " - Type mesure:"+self.mh_type
+
+    

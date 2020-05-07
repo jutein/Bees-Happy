@@ -12,20 +12,27 @@ urlpatterns = [
 
     url(r'^$', views.entree, name='entree'),
 
-    url('checks', views.check_list),
-
     url(r'^(?P<toto>[0-9]+)/$', views.detail, name='detail'),
 
     url(r'^(?P<id_hive>[0-9]+)/results/$', views.results, name='results'),
 
     url(r'^(?P<id_hive>[0-9]+)/mesures/$', views.mesures, name='mesures'),
 
-    path('hives/',views.hives),
+    url('Util/', views.Util),
 
-    path('calc/<int:nb1>/<int:nb2>/', views.calc),
+    url('ok/', views.Ok),
 
-    path('rucheform/', views.rucheforme, name='rucheform'),
+    url('apiaries_list/', views.Apiaries_list, name='apiaries_list'),
+
+    path('apiaries_form/', views.Apiaries_form, name='apiaries_form'),
+
+    path('hives_list/', views.Hives_list, name='hives_list'),
+
+    path('hives_form/', views.Hives_form, name='hives_form'),
     
-    path('apiary/', views.apiaryform, name='apiary'),
+    url('checks_list/', views.Checks_list, name='checks_list'),
+
+    path('checks_form/', views.Checks_form, name='checks_form'),
+
 
 ]

@@ -1,8 +1,10 @@
 from django import forms
 
+
 class ConnexionForm(forms.Form):
     username = forms.CharField(label="Nom d'utilisateur", max_length=30)
     password = forms.CharField(label="Mot de passe", widget=forms.PasswordInput)
+
 
 class Apiaryform(forms.Form):
 
@@ -10,7 +12,6 @@ class Apiaryform(forms.Form):
 #    a_fkuser = models.ForeignKey(User, on_delete=models.CASCADE)
     a_name = forms.CharField(max_length=15)
     a_idgateway = forms.CharField(max_length=15)
-
 
 
 class Rucheform(forms.Form):
@@ -24,17 +25,20 @@ class Rucheform(forms.Form):
     Restiction = forms.IntegerField()
     traitement = forms.CharField(max_length=15)
 
-    def clean_traitement(self):
-        traitement = self.cleaned_data['traitement']
-        if "APIVAR" in traitement:
-            raise forms.ValidationError("L'APIVAR est interdit en bio")
-        return traitement  
+    #def clean_traitement(self):
+    #    traitement = self.cleaned_data['traitement']
+    #    if "APIVAR" in traitement:
+    #        raise forms.ValidationError("L'APIVAR est interdit en bio")
+    #    return traitement  
 
-    def clean_Etat_couvain(self):
-        Etat_couvain=self.cleaned_data['Etat_couvain']
+    #def clean_Etat_couvain(self):
+        #Etat_couvain = self.cleaned_data['Etat_couvain']
         #nb_cadre_couvain=self.
-        if nb_cadre_couvain.validate < 2 and  self.Etat_couvain.__str__ == "BON":
-            raise forms.ValidationError("Etat bon incompatible avec nb ")
-        return Etat_couvain
+        #if nb_cadre_couvain.validate < 2 and  self.Etat_couvain.__str__ == "BON":
+        #    raise forms.ValidationError("Etat bon incompatible avec nb ")
+        #return Etat_couvain
 
 
+#class Checkform(forms.Form):
+ #   cf_datetime = forms.DateTimeField(label='Date visite')
+  #  cf_globalstatus = forms.CharField(max_length=10)

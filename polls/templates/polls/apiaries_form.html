@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Ma page d'accueil{% endblock %}
+{% block content %}
+    <h2>Nouveau Rucher :</h2>
+    <form action="/polls/apiaries_form/" method="POST">
+        {% csrf_token %}
+        {{ formap.as_p }}
+        <input type="submit" value="Valider">       
+    </form>
+{% endblock %}

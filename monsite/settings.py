@@ -20,7 +20,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '5%e29sy^07+v5+yg_b7a2a(pv(6tqw20*ipkj)^l!h*y-gb&1f'
+if os.environ.get('ENV')=='PRODUCTION':
+    SECRET_KEY = '1eTy}!4=[8>[Y(p1h1Za\t\tFB'
+else:
+    SECRET_KEY = '5%e29sy^07+v5+yg_b7a2a(pv(6tqw20*ipkj)^l!h*y-gb&1f'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 if os.environ.get('ENV')=='PRODUCTION':
@@ -28,7 +32,7 @@ if os.environ.get('ENV')=='PRODUCTION':
 else:
     DEBUG = True
 
-ALLOWED_HOSTS = ['beeshappy.herokuapp.com']
+ALLOWED_HOSTS = ['beeshappy.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
@@ -59,7 +63,7 @@ ROOT_URLCONF = 'monsite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -129,9 +133,8 @@ if os.environ.get('ENV') == ('PRODUCTION') :
     STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
     STATICFILES_DIRS = (
         os.path.join(BASE_DIR, "static"), '/polls/static')
-    STATICFILES_STORAGE = 
-        'whirenoise.storage.CompressedManifestStaticFilesStorage'    
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'    
 
 else :
         STATICFILES_DIRS = (
-        os.path.join(BASE_DIR, "static"), 'static'
+        os.path.join(BASE_DIR, "static"), 'static')

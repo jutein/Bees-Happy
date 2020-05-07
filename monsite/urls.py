@@ -20,6 +20,6 @@ from django.contrib import admin
 from django.conf.urls.static import static
 
 urlpatterns = [
-    url(r'^polls/', include('polls.urls')),
+    url('polls/', include('polls.urls')),
     url('admin/', admin.site.urls),
 ]

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Consultation{% endblock %}
+{% block content %}
+{% if Apiaries_list %}
+    <ul>
+    <B> Mes ruchers</B>
+    Nombre de ruchers : {{Apiaries_count}}
+    {% for Apiaries in Apiaries_list %}
+  <li> Rucher de {{Apiaries.a_name }}</li>
+    {% endfor %}
+    <a href="/polls/apiaries_form">Nouveau Rucher</a>
+    </ul>
+{% else %}
+    <p>Vous n'avez entré aucun rucher</p>
+{% endif %}
+{% endblock %}

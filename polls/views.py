@@ -9,7 +9,10 @@ from .models import Check_Hive, Metric_Hive, Metric_Env, Hive, Check, Apiaries, 
 from .form import Rucheform
 from .form import Apiaryform
 from .form import ConnexionForm
+from .models import Checkform
+from .models import Hiveform, Apiarieform
 from django.contrib.auth import authenticate, login
+
 def connexion(request):
     error = False
 
@@ -35,26 +38,69 @@ def deconnexion(request):
     #from django.core.exceptions import ObjectDoesNotExist
 
 
-def check_list(request):
-    latest_check_list = Check.objects.all() #Check_Hive.objects.order_by('id_hive')
-    template = loader.get_template('polls/checks.html')
-    context = {'latest_check_list': latest_check_list,}
-    #return render(request ,'polls/index.html',context)
+def Checks_list(request):
+    Check_list = Check.objects.all()
+    Check_nb = Check_list.count()
+    template = loader.get_template('polls/checks_list.html')
+    context = {'Check_list': Check_list, 'Check_nb': Check_nb}
+    return HttpResponse(template.render(context, request))
+
+
+def Checks_form(request):
+    if (request.method == 'POST'):
+        formc = Checkform(request.POST)
+        if formc.is_valid():
+            formc.save()
+            return HttpResponseRedirect('/polls/checks_list/')
+    else:
+        formc = Checkform()
+    return render(request, 'polls/checks_form.html', locals())
+
+
+def Hives_list(request):
+    Hive_list = Hive.objects.all() 
+    Hive_count = Hive_list.count()
+    template = loader.get_template('polls/hives_list.html')
+    context = {'Hive_list': Hive_list, 'Hive_count': Hive_count}
     return HttpResponse(template.render(context,request))
 
 
-def hives(request):
-    latest_hive_list = Check_Hive.objects.all() #Check_Hive.objects.order_by('id_hive')
-    template = loader.get_template('polls/hives.html')
-    context = {'latest_hive_list': latest_hive_list,}
-    #return render(request ,'polls/index.html',context)
+def Hives_form(request):
+    if (request.method == 'POST'):
+        formh = Hiveform(request.POST)
+        if formh.is_valid():
+            formh.save()
+            return HttpResponseRedirect('/polls/hives_list/')
+    else:
+        formh = Hiveform()
+    return render(request, 'polls/hives_form.html', locals())
+
+
+def Apiaries_list(request):
+    Apiaries_list = Apiaries.objects.all() 
+    Apiaries_count = Apiaries_list.count()
+    template = loader.get_template('polls/apiaries_list.html')
+    context = {'Apiaries_list': Apiaries_list, 'Apiaries_count': Apiaries_count}
+    return HttpResponse(template.render(context, request))
+
+
+def Apiaries_form(request):
+    if (request.method == 'POST'):
+        formap = Apiarieform(request.POST)
+        if formap.is_valid():
+            formap.save()
+            return HttpResponseRedirect('/polls/apiaries_list/')
+    else:
+        formap = Apiarieform()
+    return render(request, 'polls/apiaries_form.html', locals())
+
+
+def Ok(request):
+    Result = 'Ok'
+    template = loader.get_template('polls/ok.html')
+    context = {'Result': Result}
     return HttpResponse(template.render(context,request))
-    # output = ' - '.join([q.etat_couvain for q in latest_hive_list])+':'#+str(.join([q.id_hive for q in latest_hive_list]))
-    # return HttpResponse(output)
-    # return HttpResponse("Bees Happy is happy to welcome you.")
-    #hive_list = Check_Hive.objects.order_by('-chk_date')
-    #Check_Hive.objects.all()
-    #return render(request, 'polls/index.html', hive_list)
+
 
 def detail(request, toto):
     #mesures_list = Metric_Hive.objects.order_by('-acq_date')
@@ -83,10 +129,7 @@ def mesures(request, id_hive):
     return render(request, 'polls/mesures.html',{'mesure':mesure})
 
 
-def calc(request, nb1, nb2):    
-    add = nb1 + nb2
-    mult = nb1 * nb2
-    montexte = "ceci est un texte trop long"
+def Util(request):    
     return render(request, 'polls/calc.html', locals())
 
 
