@@ -1,1 +1,1 @@
-web: gunicorn beeshappy.wsgi
+web: gunicorn monsite.wsgi
