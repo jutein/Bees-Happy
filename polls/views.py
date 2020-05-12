@@ -1,5 +1,5 @@
 # Create your views here.
-from django.http import Http404
+from django.http import Http404, HttpResponse, JsonResponse
 from django.contrib.auth import logout
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
@@ -12,6 +12,10 @@ from .form import ConnexionForm
 from .models import Checkform
 from .models import Hiveform, Apiarieform
 from django.contrib.auth import authenticate, login
+from rest_framework import viewsets
+from rest_framework import permissions
+from polls.serializers import Apiaries_Serializer, Hives_Serializer, Checks_Serializer
+
 
 def connexion(request):
     error = False
@@ -93,6 +97,48 @@ def Apiaries_form(request):
     else:
         formap = Apiarieform()
     return render(request, 'polls/apiaries_form.html', locals())
+
+
+#.......... API Apiaries .............
+class Apiaries_APIViewSet(viewsets.ModelViewSet):
+    queryset = Apiaries.objects.all()
+    serializer_class = Apiaries_Serializer
+    permissions_classes = [permissions.IsAuthenticated]
+
+
+def Apiaries_APIList(request):
+    if request.method == 'GET':
+        q_apiaries = Apiaries.objects.all()
+        ser_apiaries = Apiaries_Serializer(q_apiaries, many=True)
+        return JsonResponse(ser_apiaries.data, safe=False)
+
+
+#.......... API Hives .............
+class Hives_APIViewSet(viewsets.ModelViewSet):
+    queryset = Hive.objects.all()
+    serializer_class = Hives_Serializer 
+    permissions_classes = [permissions.IsAuthenticated]
+
+
+def Hives_APIList(request):
+    if request.method == 'GET':
+        q_hives = Hive.objects.all()
+        ser_hives = Hives_Serializer(q_hives, many=True)
+        return JsonResponse(ser_hives.data, safe=False)
+
+
+#.......... API Ckeck .............
+class Checks_APIViewSet(viewsets.ModelViewSet):
+    queryset = Check.objects.all()
+    serializer_class = Checks_Serializer 
+    permissions_classes = [permissions.IsAuthenticated]
+
+
+def Checks_APIList(request):
+    if request.method == 'GET':
+        q_checks = Check.objects.all()
+        ser_checks = Checks_Serializer(q_checks, many=True)
+        return JsonResponse(ser_checks.data, safe=False)
 
 
 def Ok(request):

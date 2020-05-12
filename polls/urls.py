@@ -1,7 +1,16 @@
-from django.conf.urls import url
+from django.conf.urls import include, url
 from django.urls import path
-
 from . import views
+from .import serializers
+from rest_framework import routers, viewsets
+from django.contrib.auth.models import User
+
+
+router = routers.DefaultRouter()
+router.register(r'apiaries', views.Apiaries_APIViewSet)
+router.register(r'hives', views.Hives_APIViewSet)
+router.register(r'checks', views.Checks_APIViewSet)
+
 
 app_name = 'polls'
 urlpatterns = [
@@ -21,6 +30,15 @@ urlpatterns = [
     url('Util/', views.Util),
 
     url('ok/', views.Ok),
+
+    url('api/', include(router.urls)),
+
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
+    path('a/', views.Apiaries_APIList),
+    path('h/', views.Hives_APIList),
+    path('c/', views.Checks_APIList),
+#path('', include('polls.urls')),
 
     url('apiaries_list/', views.Apiaries_list, name='apiaries_list'),
 
