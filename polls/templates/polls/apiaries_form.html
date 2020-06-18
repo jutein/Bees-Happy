@@ -2,8 +2,9 @@
 {% block title %}Ma page d'accueil{% endblock %}
 {% block content %}
     <h2>Nouveau Rucher :</h2>
-    <form action="/polls/apiaries_form/" method="POST">
+    <form action="/apiaries_form/" method="POST">
         {% csrf_token %}
+        rucher de {{id_user}}
         {{ formap.as_p }}
         <input type="submit" value="Valider">       
     </form>

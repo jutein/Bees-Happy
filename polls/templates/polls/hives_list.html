@@ -1,16 +1,19 @@
 {% extends "base.html" %}
+TTTT
 {% block title %}Consultation{% endblock %}
 {% block content %}
 {% if Hive_list %}
     <ul>
+  
     <B> Mes ruches</B>
     Nombre de ruches : {{Hive_count}}
     {% for Hive in Hive_list %}
   <li> Ruche N° {{Hive.rfid_id }}  Rucher {{Hive.h_fkapiary}}</li>
     {% endfor %}
-    <a href="/polls/hives_form">Nouvelle Ruche</a>
+    <a href="/hives_form">Nouvelle Ruche</a>
     </ul>
 {% else %}
     <p>No hive available.</p>
+    <a href="/hives_form">Nouvelle Ruche</a>
 {% endif %}
 {% endblock %}

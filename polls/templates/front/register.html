@@ -1,0 +1,22 @@
+<form method="post"  role="form">
+    {% csrf_token %}
+    <p>Bienvenue sur la page d'enregistrement utilisateurt de Bees App-E.
+    <br />
+    Une fois enregistré, vous pourrez créer votre rucher, vos ruches et effectuer vos suivis de visites</p>
+    <p>L'inscription et l'utilisation de l'application  bees-App-E est gratuite dans sa version de base 
+    <br />
+    Vous aurez ensuite la possibilité de souscrire pour pouvoir utiliser la version professionnelle
+    <br /> Consulter les tarifs: ></p>
+    <br />
+    Commencer votre inscription : 
+    <br />
+    Prénom : <input  type="text" name="first_name" placeholder="First name">
+    <br />
+    Nom : <input  type="text" name="last_name" placeholder="Second name">
+    <br />
+    adresse mail : <input  type="text" name="email" placeholder="@ mail">
+    <br />
+    mot de passe : <input type="password" name="password" placeholder="Password">
+    <br />
+    <input type="submit" value="login" />
+</form>

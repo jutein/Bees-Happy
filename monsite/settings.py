@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import psycopg2.extensions
 
 # Build paths inside the project like this: os.path.join(, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -61,10 +62,11 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'monsite.urls'
 
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'polls','templates','polls'), os.path.join(BASE_DIR, 'polls','templates','front')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -77,16 +79,31 @@ TEMPLATES = [
     },
 ]
 
+LOGIN_URL = '/login'
+#LOGIN_REDIRECT_URL = os.path.join(BASE_DIR, 'polls','templates','polls')
+LOGOUT_REDIRECT_URL = '/login'
+
+
 WSGI_APPLICATION = 'monsite.wsgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#    }
+#}
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postgres',
+        'USER' : 'postgres',
+        'PASSWORD': 'MZYpostgresql',
+        'HOST': '',
+        'PORT': '5432',
     }
 }
 
@@ -153,3 +170,4 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10
 }
+

@@ -18,8 +18,28 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.conf.urls.static import static
+from django.contrib.auth.decorators import login_required
+from django.views.generic import TemplateView
+from polls.views import LoginView, LogoutView, RegisterView, entree 
+#, Apiaries_Lst
+from polls.views import Apiaries_view
+from polls.views import Apiaries_form, Hives_form, Checks_form
+from polls.views import Apiaries_list, Hives_list, Checks_list, Util
 
 urlpatterns = [
-    url('polls/', include('polls.urls')),
-    url('admin/', admin.site.urls),
+    url(r'^admin/', admin.site.urls),
+    url(r'^login$', LoginView.as_view()),
+    url(r'^logout', LogoutView.as_view()),
+    url(r'^register', RegisterView.as_view()),
+    url(r'^$', entree, name='entree'),
+    #url(r'^apiaries$', Apiaries_Lst.as_view()),
+    url(r'^apiaries_list', Apiaries_list, name='apiaries_list'),
+    url(r'^apiaries_form/$', Apiaries_form, name='Apiarie_form'),
+    url(r'^apiaries_view/(?P<apiarie_id>[0-9]+)/$', Apiaries_view, name='apiaries_view'),
+    url(r'^hives_list/', Hives_list, name='hives_list'),
+    url(r'^hives_form/(?P<apiarie_id>[0-9]+)/$', Hives_form, name='Hives_form'),
+    url(r'^checks_list/', Checks_list, name='checks_list'),
+    url(r'^checks_form/', Checks_form, name='checks_form'),
+    url(r'^Util/', Util),
+    url(r'^api', include('polls.urls')),
 ]

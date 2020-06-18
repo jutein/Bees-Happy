@@ -1,15 +1,18 @@
 from django.db import models
 from django.utils import timezone
 from django.forms import ModelForm
+from django.conf import settings
 
+User = settings.AUTH_USER_MODEL
 
 # general app setting 
 class Settingg_app(models.Model):
     as_appname = models.CharField(max_length=10,default='BEESHAPPY')
 
 #user setting
-class User(models.Model):
-    u_id = models.IntegerField(primary_key=True)
+class User_Details(models.Model):
+    u_fkuser = models.ForeignKey(User, on_delete=models.CASCADE)
+    u_id = models.AutoField(primary_key=True)
     u_firstname = models.CharField(max_length=20)
     u_name = models.CharField(max_length=20)
     u_mail = models.CharField(max_length=30,unique=True, null=False)
@@ -22,7 +25,7 @@ class User(models.Model):
 
 #Apiaries linked many to one User
 class Apiaries(models.Model):
-    a_id = models.IntegerField(primary_key=True)
+    a_id = models.AutoField(primary_key=True)
     a_fkuser = models.ForeignKey(User, on_delete=models.CASCADE)
     a_name = models.CharField(max_length=15)
     a_idgateway = models.CharField(max_length=15)
@@ -33,26 +36,17 @@ class Apiaries(models.Model):
 
 
 class Apiarieform(ModelForm):
+    #def __init__(self, *arg, **kwargs):
+    #    iduser = kwargs.pop('id_user')
+    #    super(Apiarieform, self).__init__(*args, **kwargs)
     class Meta:
         model = Apiaries
-        fields = ['a_id', 'a_fkuser', 'a_name', 'a_idgateway']
+        fields = ['a_name', 'a_idgateway']
+        #'a_fkuser',
 
 
 #Hive linked many to one Apiary
 class Hive(models.Model):
-    QUEEN_TYPE = (
-        ('CA','CAUCASE'),
-        ('NO','NOIRE'),
-        ('IN','INCONNUE'),
-        ('XX','XXXX'),
-    )
-    QUEEN_COLOR = (
-        ('B','BLUE'),
-        ('W','WHITE'),
-        ('Y','YELLOW'),
-        ('R','RED'),
-        ('G','GREEN')
-    )
     HIVE_MODEL = (
         ('D','DADANT'),
         ('L','LANGSTROTH'),
@@ -64,10 +58,7 @@ class Hive(models.Model):
     )
     rfid_id = models.IntegerField(default=99)
     h_fkapiary = models.ForeignKey(Apiaries, on_delete=models.CASCADE)
-    h_swarmdate = models.DateTimeField(auto_now=False,auto_now_add=False)
-    h_queendate = models.DateTimeField(auto_now=False,auto_now_add=False)
-    h_queentype = models.CharField(max_length=10,choices=QUEEN_TYPE)
-    h_queencolor = models.CharField(max_length=6, choices=QUEEN_COLOR)
+    h_boxdate = models.DateTimeField(auto_now=False,auto_now_add=False)
     h_model = models.CharField(max_length=10,choices=HIVE_MODEL)
     h_framenb = models.BigIntegerField(default=10)
 
@@ -79,9 +70,7 @@ class Hive(models.Model):
 class Hiveform(ModelForm):
     class Meta:
         model = Hive
-        fields = ['h_fkapiary', 'rfid_id', 'h_swarmdate', 'h_queendate', 
-            'h_queentype', 'h_queencolor', 'h_model', 
-            'h_framenb']
+        fields = ['rfid_id', 'h_boxdate', 'h_model', 'h_framenb']
 
 #Check linked many to one Hive (Visites)
 class Check(models.Model):
@@ -125,6 +114,19 @@ class Check(models.Model):
         ('M','MOYEN'), 
         ('V','VIDE'),
     )
+    QUEEN_TYPE = (
+        ('CA','CAUCASE'),
+        ('NO','NOIRE'),
+        ('IN','INCONNUE'),
+        ('XX','XXXX'),
+    )
+    QUEEN_COLOR = (
+        ('B','BLUE'),
+        ('W','WHITE'),
+        ('Y','YELLOW'),
+        ('R','RED'),
+        ('G','GREEN')
+    )
     #c_id = models.IntegerField(primary_key=True)
     c_datetime = models.DateTimeField(blank=True)
     c_fkhive = models.ForeignKey(Hive, on_delete=models.CASCADE)
@@ -134,6 +136,9 @@ class Check(models.Model):
     c_foodquality = models.CharField(max_length=15, choices=CHECK_FOODQUALITY, blank=True)
     c_broodframenb = models.IntegerField(default=3, blank=True)
     c_broodframequality = models.CharField(max_length=15, choices=CHECK_BRQUAL, blank=True)
+    #c_queendate = models.DateTimeField(auto_now=False,auto_now_add=False)
+    #c_queentype = models.CharField(max_length=10,choices=QUEEN_TYPE)
+    #c_queencolor = models.CharField(max_length=6, choices=QUEEN_COLOR)
     c_queencellsnb = models.IntegerField(default=0)
     c_queencellsextract = models.IntegerField(default=0)
     c_queencelladded = models.IntegerField(default=0)

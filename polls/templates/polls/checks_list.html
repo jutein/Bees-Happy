@@ -8,7 +8,7 @@
     {% for Check in Check_list %}
   <li>  Visite : {{Check.c_fkhive}}  Date & heure : {{Check.c_datetime}} Etat général : {{Check.c_globalstatus}} Hause 1 : {{Check.c_super1}} Hause 2 : {{Check.c_super2}}</li>
     {% endfor %}
-    <a href="/polls/checks_form">Nouv Visite</a>
+    <a href="/checks_form">Nouv Visite</a>
     </ul>
 {% else %}
     <p>Aucune visite pour cette sélection de ruche ou rucher</p>

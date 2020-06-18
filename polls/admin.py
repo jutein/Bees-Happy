@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Settingg_app, User, Apiaries, Hive, Check
+from .models import Settingg_app, User_Details, Apiaries, Hive, Check
 from .models import Check_Hive, Metric_Hive, Metric_Env
 
 # Register your models here.
@@ -12,7 +12,7 @@ class UserAdmin(admin.ModelAdmin):
     search_fields = ('u_firstname', 'u_name')
 
 
-admin.site.register(User, UserAdmin)
+#admin.site.register(User, UserAdmin)
 
 
 class ApiariesAdmin(admin.ModelAdmin):
@@ -38,17 +38,13 @@ admin.site.register(Apiaries, ApiariesAdmin)
 
 
 class HiveAdmin(admin.ModelAdmin):
-    list_display = ('h_fkapiary', 'rfid_id', 'h_swarmdate')
-    list_filter = ('h_fkapiary', 'rfid_id', 'h_swarmdate')
+    list_display = ('h_fkapiary', 'rfid_id', 'h_boxdate')
+    list_filter = ('h_fkapiary', 'rfid_id', 'h_boxdate')
     search_fields = ('h_fkapiary', 'rfid_id')
     fieldsets = (
        ('Info Rucher', {
             'classes': ['wide', ],
-            'fields': ('h_fkapiary', 'rfid_id')
-        }),
-       ('Info Essaim', {
-            'classes': ['extrapretty', ],
-            'fields': ('h_swarmdate','h_queendate','h_queentype','h_queencolor')
+            'fields': ('h_fkapiary', 'rfid_id', 'h_boxdate')
         }),
        ('Info Ruche', {
             'classes': ['extrapretty', ],

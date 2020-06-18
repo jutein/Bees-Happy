@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Ma page d'accueil{% endblock %}
+{% block content %}
+    {{myuser}}
+    {{a_name}}
+    <h2>Détail du Rucher :</h2>
+    <form action="/apiaries_view/" method="GET">
+        {% csrf_token %}
+        rucher :
+        Identifiant du rucher : {{apiarie.a_id}} <br>
+        Nom du rucher : {{apiarie.a_name}} <br>
+        Passerelle : {{apiarie.a_idgateway}} <br>
+        <br>
+        <B> Ruches</B>
+        {% if Hive_list %}
+            Nombre de ruches : {{Hive_count}}
+            {% for Hive in hives %}
+                <li> Ruche N° {{Hive.rfid_id }}  Rucher {{Hive.h_fkapiary}}</li>
+            {% endfor %}
+        {% else %}
+            Pas de ruche sur ce rucher <br>
+            <a href="/hives_form/{{apiarie.a_id}}">Nouvellle Ruche</a>
+            <br>
+        {% endif %}
+        <input type="submit" value="Retour">       
+    </form>
+{% endblock %}

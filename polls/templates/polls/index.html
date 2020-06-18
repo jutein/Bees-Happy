@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Ma page d'accueil{% endblock %}
+{% block content %}
+{% if myuser %}
+²   <h2>Bienvenue {{myuser}}</h2>
+    
+    <p><a href="/logout">Sortir</a></p>
+{% else %}
+    Identifiez vous
+    <a href="/login">s'identifier</a>   
+    Ou créer votre indentifiant : 
+    <a href="/register">s'enregistrer</a>   
+{% endif %}
+    <p>
+       L'annalyse de données apicoles au service des abeilles et des apiculteurs ...
+    </p>
+{% endblock %}

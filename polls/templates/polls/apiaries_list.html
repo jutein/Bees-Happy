@@ -6,11 +6,14 @@
     <B> Mes ruchers</B>
     Nombre de ruchers : {{Apiaries_count}}
     {% for Apiaries in Apiaries_list %}
-  <li> Rucher de {{Apiaries.a_name }}</li>
+      <li> Rucher {{Apiaries.a_name }}
+        <a href="/apiaries_view/{{Apiaries.a_id}}"> Détail </a>
+      </li>
     {% endfor %}
-    <a href="/polls/apiaries_form">Nouveau Rucher</a>
+    <a href="/apiaries_form">Nouveau Rucher</a>
     </ul>
 {% else %}
     <p>Vous n'avez entré aucun rucher</p>
+    <a href="/apiaries_form">Nouveau Rucher</a>
 {% endif %}
 {% endblock %}
