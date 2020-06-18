@@ -1,0 +1,20 @@
+Coté view.py:
+
+class RucheView(TemplateView):
+    template_name = "ruche.html"
+
+    def add_ruche(request, rucherPk):
+        rucheContext = {rucher_pk: rucherPk}
+        # Do anything you need to do before rendering template
+        return render(request, 'ruche_add_form.html', rucheContext)
+     
+Coté url.py:
+from path.to.my.views import views as ruche_views
+...
+urlpatterns = [
+...
+  url(r"^rucher/addRuche/(?P<rucherPk>.*)$", ruche_views.add_ruche),
+  ...
+]
+
+Dans l'url, tu as (?P<rucherPk>.*) ce qui correspond a ta variable rucherPk dans les paramètre de la fonction add_ruche()
